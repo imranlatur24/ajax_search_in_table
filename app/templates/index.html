@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">  
+
+    <script type="text/javascript">
+        function search_query()
+        {
+            var input,table,td,th,filter,i,txtData;
+            input=document.getElementById("searchtxt");
+            filter=input.value.toUpperCase();
+            table=document.getElementById("table1");
+            console.log("table "+table);
+            tr=table.getElementsByTagName("tr");
+            console.log("tr "+tr);
+            for(i=0;i<tr.length;i++)
+            {
+                td=tr[i].getElementsByTagName("td")[0]; // 0 means search by id 1 means emp-name and so on.
+                if(td)
+                {
+                    txtData = td.innerText;
+                    console.log("txtData"+txtData)
+                    if(txtData.toUpperCase().indexOf(filter)>-1)
+                    {
+                        tr[i].style.display="";
+                    }
+                    else{
+                        tr[i].style.display="none";
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container-fluid">
+    
+    <center>
+    
+    <h1>Example of Search filter using table data</h1>
+    <h4>Technogies are : JS,django,Html,Jinja and Mysql</h4>
+    
+    <hr>   
+    <input type="text" id="searchtxt" placeholder="search.." onkeyup="search_query();">
+    <hr>
+    <table id="table1" class="table table-hover" border="1">
+            <tr>
+                <th>Emp_Id</th>
+                <th>Emp_Name</th>
+                <th>Emp_Email</th>
+                <th>Emp_Salary</th>
+            </tr>
+            {% for e in emp_data %}
+            <tr>
+                <td>{{e.id}}</td>
+                <td>{{e.emp_name}}</td>
+                <td>{{e.emp_email}}</td>
+                <td>{{e.emp_salary}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </center>
+    </div>
+</body>
+</html>
